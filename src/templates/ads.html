@@ -1,0 +1,134 @@
+{% extends 'base.html' %}
+<style>
+    .container {
+        position: absolute;
+        text-align: center;
+        color: black;
+    }
+
+    .title {
+        position: absolute;
+        top: 30%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .title-name {
+        position: absolute;
+        top: 30%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        outline: solid 1px black;
+        width: 200px;
+    }
+
+    .start-date {
+        position: absolute;
+        top: 40%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .start-date-name {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        outline: solid 1px black;
+        width: 200px;
+    }
+
+    .end-date {
+        position: absolute;
+        top: 50%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .end-date-name {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        outline: solid 1px black;
+        width: 200px;
+    }
+
+    .location {
+        position: absolute;
+        top: 60%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .location-name {
+        position: absolute;
+        top: 60%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        outline: solid 1px black;
+        width: 200px;
+    }
+
+    .description {
+        position: absolute;
+        top: 75%;
+        left: 30%;
+        transform: translate(-50%, -50%);
+    }
+
+    .description-name {
+        position: absolute;
+        top: 70%;
+        left: 225%;
+        transform: translate(-50%, -50%);
+        outline: solid 1px black;
+        width: 200px;
+        height: 100px;
+    }
+
+</style>
+
+{% block content %}
+    <h1>This is the ads</h1>
+    <div id="ads_containter" style="background-image: url('https://i.ibb.co/zS8PJzQ/superbg2.png');">
+        {% for ad in ads %}
+            <div class="container"
+                 style="font-family:Comic sans MS; background-repeat: no-repeat;background-image: url('https://cdn.hipwallpaper.com/i/60/77/274XyK.png');background-size: 700px 700px; width: 600px; height: 600px;">
+                <div style="margin-top: 100px; margin-left: 50px">
+                    <div class="title"><strong>Title:</strong></div>
+                    <div class="title-name"> {{ ad.title }}</div>
+                    {% if not ad.all_day %}
+                        <div class="start-date"><strong>Date:</strong></div>
+                        <div class="start-date-name"> {{ ad.one_day_date }}</div>
+                        <div class="end-date"><strong>Start time:</strong></div>
+                        <div class="end-date-name"> {{ ad.start_time }}</div>
+                        <div class="end-date"><strong>End time:</strong></div>
+                        <div class="end-date-name"> {{ ad.end_time }}</div>
+                    {% else %}
+                        <div class="start-date"><strong>Dates:</strong></div>
+                        <div class="start-date-name"> {{ ad.start_date }} - {{ ad.end_date }}</div>
+                        <div class="end-date"><strong>Aours per day:</strong></div>
+                        <div class="end-date-name"> {{ ad.number_of_hours }}</div>
+                    {% endif %}
+                    {% if ad.is_license %}
+                        <div class="license"><strong>you'll need a license for this</strong></div>{% endif %}
+                    {% if not ad.is_food %}
+                        <div class="food"><strong>you'll need to bring your own food or eat beforehand </strong>
+                        </div>{% endif %}
+                    <div class="description"><strong>Description:</strong>
+                        <div class="description-name"> {{ ad.description }}</div>
+                    </div>
+                    <div class="mapouter" style="margin-left: 30%; margin-top: -7%">
+                        <div class="gmap_canvas">
+                            <iframe width="300" height="300" id="gmap_canvas" names="gmap_canvas"
+                                    src="https://maps.google.com/maps?q={{ ad.location_number }}%20{{ ad.location_street }},%20{{ ad.location_city }}&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                                    frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+

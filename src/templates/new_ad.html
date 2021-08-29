@@ -1,0 +1,122 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div style="text-align: center;">
+        <h2>Add new post</h2>
+        <form method="post">
+            {% csrf_token %}
+            <br><br>
+            <label for="title">Title: </label><br>
+            <input type="text" id="title" name="title" value=""><br><br>
+
+            <input type="checkbox" id="allday" name="allday" onchange="hide_date()"><label for="allday">All
+            day events</label><br>
+            <label for="d_start_s" id="d_start">date:</label><br>
+            <input type="date" id="d_start_s" name="d_start_s" value="yyyy-mm-dd"><br>
+            <label for="d_from_s" id="d_from">from: </label>
+            <input type="time" id="d_from_s" name="d_from_s" value="hh:mm" min="00:00"
+                   max="23:59">
+            <label for="d_to_s" id="d_to"> to: </label>
+            <input type="time" id="d_to_s" name="d_to_s" value="hh:mm" min="00:00"
+                   max="23:59"><br>
+
+
+            <label for="w_start_s" id="w_start" hidden="true">Start date and time:</label><br>
+            <input type="date" id="w_start_s" name="w_start_s" value="yyyy-mm-dd" min="2021-01-01T00:00"
+                   max="2100-12-31T00:00" hidden="true"><br>
+            <label for="w_end_s" id="w_end" hidden="true">end date and time:</label><br>
+            <input type="date" id="w_end_s" name="w_end_s" value="yyyy-mm-dd" min="2021-01-01T00:00"
+                   max="2100-12-31T00:00" hidden="true"><br>
+
+            <label for="work_per_day_s" id="work_per_day" hidden="true">how many houres in a wrok day:</label><br>
+            <select hidden="true" id="work_per_day_s" name="work_per_day_s">{% for i in '0123456789'|make_list %}<option value="{{ forloop.counter }}">{{ forloop.counter }}</option>{% endfor %}</select><br>
+
+            <br>
+            <input type="checkbox" id="license_s" name="license_s">
+            <label for="license_s" id="license">check if a license is needed</label><br>
+
+            <input type="checkbox" id="food" name="food">
+            <label for="food" id="food_s">check if you provide food</label><br>
+
+            <input type="checkbox" id="physical_work" name="physical_work">
+            <label for="physical_work" id="physical_work_s">check if physical work is needed</label><br>
+            <br>
+
+            <h3>address: </h3><br><br>
+
+            <label for="street">street: </label><br>
+            <input type="address" id="street" name="street" value="" onchange="change_src()"><br>
+            <label for="street_number">street number: </label><br>
+            <input type="address" id="street_number" name="street_number" value="" onchange="change_src()"><br>
+            <label for="city">city: </label><br>
+            <input type="address" id="city" name="city" value="" onchange="change_src()"><br> <br>
+
+            <div class="mapouter">
+                <div class="gmap_canvas">
+                    <iframe width="600" height="500" id="gmap_canvas" names="gmap_canvas"
+                            src="https://maps.google.com/maps?q=7%20admonit,%20lod&t=&z=13&ie=UTF8&iwloc=&output=embed"
+                            frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></iframe>
+                </div>
+            </div>
+            <br>
+            <br>
+            <label for="description">Description:</label><br>
+
+            <textarea id="description" name="description" rows="6" cols="50"></textarea><br><br>
+            <input type="submit" value="Submit">
+
+
+        </form>
+    </div>
+    <script language="JavaScript">
+        function change_src() {
+            document.getElementById("gmap_canvas").src = "https://maps.google.com/maps?q=" + document.getElementById("street_number").value + "%20" + document.getElementById("street").value + ",%20" + document.getElementById("city").value + "&t=&z=13&ie=UTF8&iwloc=&output=embed";
+        }
+
+        function hide_date() {
+            var hide = document.getElementById("allday").checked;
+            document.getElementById("d_start").hidden = hide;
+            document.getElementById("d_start_s").hidden = hide;
+            document.getElementById("d_from").hidden = hide;
+            document.getElementById("d_from_s").hidden = hide;
+            document.getElementById("d_to").hidden = hide;
+            document.getElementById("d_to_s").hidden = hide;
+
+            document.getElementById("w_start").hidden = !hide;
+            document.getElementById("w_start_s").hidden = !hide;
+            document.getElementById("w_end").hidden = !hide;
+            document.getElementById("w_end_s").hidden = !hide;
+            document.getElementById("work_per_day").hidden = !hide;
+            document.getElementById("work_per_day_s").hidden = !hide;
+        }
+    </script>
+{% endblock content %}
+{#<div style="text-align: center;">#}
+{#        <h2>Add new post</h2>#}
+{#        <form method="post">#}
+{#            {% csrf_token %}#}
+{#            <label for="title">Title:</label><br>#}
+{#            <input type="text" id="title" name="title" value=""><br>#}
+{#            <label for="title" id="start_lbl">Start time:</label><br>#}
+{#            <input type="datetime-local" id="start" name="start" value="yyyy-mm-dd" min="2021-01-01T00:00"#}
+{#                   max="2100-12-31T00:00">#}
+{#            <input type="checkbox" id="allday" name="allday" onchange="hide_date()"><label for="allday">All#}
+{#            day</label><br>#}
+{#            <label for="title" id="end_lbl">End time:</label><br>#}
+{#            <input type="datetime-local" id="end" name="end" value="yyyy-mm-dd" min="2021-01-01T00:00"#}
+{#                   max="2100-12-31T00:00"><br>#}
+{#            <label for="location">Location:</label><br>#}
+{#            <input type="text" id="location" name="location" value=""><br>#}
+{#            <label for="description">Description:</label><br>#}
+{#            <textarea id="description" name="description" rows="6" cols="50"></textarea><br><br>#}
+{#            <input type="submit" value="Submit">#}
+{#        </form>#}
+{#    </div>#}
+{#    <script language="JavaScript">#}
+{#        function hide_date() {#}
+{#            var hide = document.getElementById("allday").checked;#}
+{#            document.getElementById("start").hidden = hide;#}
+{#            document.getElementById("end").hidden = hide;#}
+{#            document.getElementById("start_lbl").hidden = hide;#}
+{#            document.getElementById("end_lbl").hidden = hide;#}
+{#        }#}
+{#    </script>

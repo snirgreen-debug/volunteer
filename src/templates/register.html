@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <div class="content-section">
+        <form method="POST">
+            {% csrf_token %}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Join Today</legend>
+                {{ form }}
+            </fieldset>
+            <div class="form-group">
+                <button class="btn btn-outline-info" type="submit">Sign Up</button>
+            </div>
+        </form>
+        <div class="border-top pt-3">
+            <small class="text-muted">
+                Already Have An Account? <a class="ml-2" href="/login/">Sign In</a>
+            </small>
+        </div>
+    </div>
+{% endblock content %}
+
+
+
+{#{% block content %}#}
+{#    <div style="text-align: center;">#}
+{#        <form method="post">#}
+{#            {% csrf_token %}#}
+{#            <div class="container">#}
+{#                <p>#}
+{#                    <label for="username">Username</label>#}
+{#                    <input type="text" placeholder="Enter username" name="username" id="username" required>#}
+{#                </p>#}
+{#                <p>#}
+{#                    <label for="email">email</label>#}
+{#                    <input type="text" placeholder="Enter email" name="email" id="email" required>#}
+{#                </p>#}
+{#                <p>#}
+{#                    <label for="password">Password</label>#}
+{#                    <input type="password" placeholder="Enter Password" name="password" id="password" required>#}
+{#                </p>#}
+{#                <p>#}
+{#                    <label for="psw-repeat">Repeat Password</label>#}
+{#                    <input type="password" placeholder="Repeat Password" name="psw-repeat" id="psw-repeat" required>#}
+{#                </p>#}
+{#                <p>#}
+{#                    <label for="volunteer-manager">I am a volunteer manager</label>#}
+{#                    <input type="checkbox" id="volunteer-manager" name="volunteer-manager">#}
+{#                </p>#}
+{#                <p>#}
+{#                    <button type="submit" class="registerbtn">Register</button>#}
+{#                </p>#}
+{#            </div>#}
+{#        </form>#}
+{#    </div>#}
+{#{% endblock content %}#}
